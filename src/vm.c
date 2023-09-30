@@ -20,20 +20,20 @@ void vm_execute(VM *vm, unsigned char opcode) {
         case PUSH:
             vm->sp++;
             vm->stack[vm->sp] = vm->memory[vm->pc + 1]; // next byte in memory, push
-            printf("[PUSH] - push the (%d) on the stack\n", vm->stack[vm->sp]);
+            printf("\033[93m[PUSH]\033[0m - push the (%d) on the stack\n", vm->stack[vm->sp]);
             vm->pc++; // don't forget about incrementing the program counter
             break;
         case ADD:
             if (vm->sp < 1) {
-                printf("Error [ADD]: Stack underflow");
+                printf("Error \033[36m[ADD]\033[0m: Stack underflow");
                 vm->isRunning = 0;
                 return;
             }
             unsigned char a = vm->stack[vm->sp--]; // Pop first value
             unsigned char b = vm->stack[vm->sp]; // Peek second value
-            printf("[ADD] - add value %d and %d, and overwrite top value on the stack\n", a, b);
+            printf("\033[36m[ADD]\33[0m  - add value %d and %d, and overwrite top value on the stack\n", a, b);
             vm->stack[vm->sp] = a + b; // ADD and overwrite second value
-            printf("[ADD] - value on the stack is %d\n", vm->stack[vm->sp]);
+            printf("\033[36m[ADD]\33[0m  - value on the stack is %d\n", vm->stack[vm->sp]);
             break;
         case SUB:
             break;
